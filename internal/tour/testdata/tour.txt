@@ -2,11 +2,11 @@ GET https://any/
 redirect == /tour/
 
 GET https://any/tour/
-body contains >A Tour of Go<
+body contains >Тур по Go<
 
 GET https://any/tour/concurrency/1
 code == 200
-body contains >A Tour of Go<
+body contains >Тур по Go<
 body contains window.tourNotFound = false
 
 # The lesson text itself is served as JSON, not in the page.

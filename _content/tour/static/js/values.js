@@ -9,57 +9,57 @@ angular.module('tour.values', []).
 // List of modules with description and lessons in it.
 value('tableOfContents', [{
     'id': 'mechanics',
-    'title': 'Using the tour',
-    'description': '<p>Welcome to a tour of the <a href="https://go.dev">Go programming language</a>. The tour covers the most important features of the language, mainly:</p>',
+    'title': 'Знакомство с туром',
+    'description': '<p>Добро пожаловать в тур по <a href="https://go.dev">языку программирования Go</a>. Тур охватывает наиболее важные возможности языка, в том числе:</p>',
     'lessons': ['welcome']
 }, {
     'id': 'basics',
-    'title': 'Basics',
-    'description': '<p>The starting point, learn all the basics of the language.</p><p>Declaring variables, calling functions, and all the things you need to know before moving to the next lessons.</p>',
+    'title': 'Основы языка',
+    'description': '<p>Отправная точка: изучите все основы языка.</p><p>Объявление переменных, вызов функций и всё, что необходимо знать перед переходом к следующим урокам.</p>',
     'lessons': ['basics', 'flowcontrol', 'moretypes']
 }, {
     'id': 'methods',
-    'title': 'Methods and interfaces',
-    'description': '<p>Learn how to define methods on types, how to declare interfaces, and how to put everything together.</p>',
+    'title': 'Методы и интерфейсы',
+    'description': '<p>Узнайте, как определять методы для типов, как объявлять интерфейсы и как объединить всё это вместе.</p>',
     'lessons': ['methods']
 }, {
     'id': 'generics',
-    'title': 'Generics',
-    'description': '<p>Learn how to use type parameters in Go functions and structs.</p>',
+    'title': 'Дженерики',
+    'description': '<p>Узнайте, как использовать параметры типов в функциях и структурах Go.</p>',
     'lessons': ['generics']
 }, {
     'id': 'concurrency',
-    'title': 'Concurrency',
-    'description': '<p>Go provides concurrency features as part of the core language.</p><p>This module goes over goroutines and channels, and how they are used to implement different concurrency patterns.</p>',
+    'title': 'Многопоточность',
+    'description': '<p>Go предоставляет средства многопоточности как часть ядра языка.</p><p>В этом модуле рассматриваются горутины и каналы, а также их применение для реализации различных паттернов многопоточности.</p>',
     'lessons': ['concurrency']
 }]).
 
 // translation
 value('translation', {
-    'off': 'off',
-    'on': 'on',
-    'syntax': 'Syntax-Highlighting',
-    'lineno': 'Line-Numbers',
-    'reset': 'Reset Slide',
-    'format': 'Format Source Code',
-    'kill': 'Kill Program',
-    'run': 'Run',
-    'compile': 'Compile and Run',
-    'more': 'Options',
-    'toc': 'Table of Contents',
-    'prev': 'Previous',
-    'next': 'Next',
-    'waiting': 'Waiting for remote server...',
-    'errcomm': 'Error communicating with remote server.',
-    'submit-feedback': 'Send feedback about this page',
+    'off': 'выкл',
+    'on': 'вкл',
+    'syntax': 'Подсветка синтаксиса',
+    'lineno': 'Номера строк',
+    'reset': 'Сбросить слайд',
+    'format': 'Форматировать код',
+    'kill': 'Остановить',
+    'run': 'Запуск',
+    'compile': 'Скомпилировать и запустить',
+    'more': 'Параметры',
+    'toc': 'Оглавление',
+    'prev': 'Назад',
+    'next': 'Далее',
+    'waiting': 'Выполняется код...',
+    'errcomm': 'Ошибка связи с удалённым сервером.',
+    'submit-feedback': 'Оставить отзыв о странице',
 
     // GitHub issue template: update repo and messaging when translating.
     // If a custom-feedback-url is set, it takes higher precedence over other fields.
     'custom-feedback-url': '/doc/contribute#check_tracker',
     'github-repo': 'github.com/golang/go',
-    'issue-title': 'x/website/_content/tour: [REPLACE WITH SHORT DESCRIPTION]',
-    'issue-message': 'Change the title above to describe your issue and add your feedback here, including code if necessary',
-    'context': 'Context',
+    'issue-title': 'x/website/_content/tour: [КРАТКОЕ ОПИСАНИЕ]',
+    'issue-message': 'Измените заголовок выше, чтобы описать вашу проблему, и добавьте отзыв здесь, при необходимости приложив код',
+    'context': 'Контекст',
 }).
 
 // Config for codemirror plugin
