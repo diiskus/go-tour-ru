@@ -1,77 +1,56 @@
-# Go website
+# Интерактивный тур по языку Go (A Tour of Go — русская версия)
 
-[![Go Reference](https://pkg.go.dev/badge/golang.org/x/website.svg)](https://pkg.go.dev/golang.org/x/website)
+Русский перевод официального интерактивного тура по языку программирования Go от The Go Authors (репозиторий golang/website).
 
-This repo holds content and serving programs for the go.dev and golang.org web sites.
+Переведены все разделы тура, интерактивные слайды, оглавление, элементы интерфейса и кнопки управления кодом (включая темы оформления, переключатели синтаксиса и импортов).
 
-Content is in \_content/ (go.dev) and tour/ (go.dev/tour).
-Server code is in cmd/ and internal/.
+## Содержание тура
 
-To run the combined go.dev+golang.org server to preview local content changes, use:
+1. **Знакомство с туром** (`welcome.article`) — навигация, запуск кода и использование тура.
+2. **Основы языка** (`basics.article`) — пакеты, переменные, функции, базовые типы данных, преобразования, константы.
+3. **Управление потоком выполнения** (`flowcontrol.article`) — циклы for, условия if/else, оператор switch, defer.
+4. **Сложные типы данных** (`moretypes.article`) — указатели, структуры, срезы (slices), ассоциативные массивы (maps), замыкания.
+5. **Методы и интерфейсы** (`methods.article`) — методы, получатели, интерфейсы, утверждения типов, ошибки, Reader, изображения.
+6. **Дженерики** (`generics.article`) — параметры типов, ограничения типов (constraints), обобщенные структуры.
+7. **Многопоточность** (`concurrency.article`) — горутины, каналы, буферизация, select, sync.Mutex, практические задачи (обход деревьев, веб-краулер).
 
-    go run ./cmd/golangorg
+## Локальный запуск
 
-The supporting programs cmd/adminapp, cmd/adminredirect, cmd/googlegolangorg
-are the servers for admin.go.dev, admin.golang.org, google.golang.org.
-(They do not use the \_content/ directories.)
+Для запуска требуется установленный Go (версии 1.18 или новее).
 
-Each command directory has its own README.md explaining deployment.
+### Быстрый запуск
 
-## JS/TS/CSS Formatting
+Склонируйте репозиторий и запустите тур:
 
-This repository uses [eslint](https://eslint.org/) to format JS and TS files,
-and [stylelint](https://stylelint.io/) to format CSS files.
+```bash
+git clone git@github.com:disk20141417-droid/go-tour-ru.git
+cd go-tour-ru/tour
+go run .
+```
 
-See also:
+После старта тур откроется в браузере по адресу:
+`http://127.0.0.1:3999`
 
-- [CSS](https://go.dev/wiki/CSSStyleGuide)
-- [JavaScript](https://google.github.io/styleguide/jsguide.html)
-- [TypeScript](https://google.github.io/styleguide/tsguide.html)
+### Сборка исполняемого файла
 
-It is encouraged that all JS, TS, and CSS code be run through formatters before
-submitting a change. However, it is not a strict requirement enforced by CI.
+Вы можете скомпилировать автономный бинарник:
 
-### Installing npm Dependencies:
+```bash
+cd tour
+go build -o tour-ru .
+./tour-ru
+```
 
-1. Install [docker](https://docs.docker.com/get-docker/)
-2. Create a .gitignore file at repo root
-3. Add .gitignore and node_modules to .gitignore
-4. Run `./npm install`
+Все веб-ресурсы, стили и статьи тура встроены внутрь бинарного файла с помощью директивы `//go:embed`.
 
-### Run ESlint
+## Структура проекта
 
-    ./npx eslint [options] [file] [dir]
+- `_content/tour/` — исходные тексты статей (.article) на русском языке, веб-интерфейс, стили и скрипты.
+- `_content/tour/static/` — статичные файлы фронтенда (AngularJS, стили, иконки).
+- `tour/` — точка входа для автономного запуска тура.
+- `internal/tour/` — внутренний HTTP-сервер и обработчики роутов.
 
-### Run Stylelint
+## Лицензия
 
-    ./npx stylelint [input] [options]
-
-## TypeScript Support
-
-TypeScript files served from _content are transformed into JavaScript.
-Reference .ts files in html templates as module code.
-
-  `<script type="module" src="/ts/filename.ts">`
-
-Write unit tests for TypeScript code using the [jest](https://jestjs.io/)
-testing framework.
-
-### Run Jest
-
-    ./npx jest [TestPathPattern]
-
-## Deploying
-
-Each time a CL is reviewed and submitted, the code is deployed to App Engine.
-See [cmd/golangorg/README.md](cmd/golangorg/README.md#deploying-to-go_dev-and-golang_org) for details.
-
-## Report Issues / Send Patches
-
-This repository uses Gerrit for code changes. To learn how to submit changes to
-this repository, see https://go.dev/doc/contribute.
-
-The git repository is https://go.googlesource.com/website.
-
-The main issue tracker for the website repository is located at
-https://go.dev/issues. Prefix your issue with "x/website:" in the
-subject line, so it is easy to find.
+Оригинальный проект: [golang/website](https://github.com/golang/website) (The Go Authors).
+Распространяется на условиях лицензии BSD-style (см. файл LICENSE).
