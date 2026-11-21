@@ -11,7 +11,7 @@ body contains window.tourNotFound = false
 
 # The lesson text itself is served as JSON, not in the page.
 GET https://any/tour/lesson/concurrency
-body contains is a lightweight thread managed by the Go runtime.
+body contains легковесный поток, управляемый средой выполнения Go.
 
 # Pages that are not part of the tour are served, with a 404 status,
 # as the tour UI displaying its not found page at the requested URL.
