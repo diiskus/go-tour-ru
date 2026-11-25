@@ -10,7 +10,7 @@ https://golang.org
 
 Тур разделён на несколько модулей, к которым можно
 получить доступ, нажав на
-[[javascript:highlight(".logo")][A Tour of Go]] в левом верхнем углу страницы.
+[[javascript:highlight(".logo")][Тур по Go]] в левом верхнем углу страницы.
 
 Вы также можете в любой момент открыть оглавление, нажав на [[javascript:highlightAndClick(".nav")][меню]] в правом верхнем углу страницы.
 
@@ -24,9 +24,9 @@ https://golang.org
 - [[javascript:highlight(".next-page")]["далее"]] или `PageDown` — для перехода на следующую страницу.
 
 Тур интерактивен. Нажмите кнопку
-[[javascript:highlightAndClick("#run")][Run]] прямо сейчас
+[[javascript:highlightAndClick("#run")][Запуск]] прямо сейчас
 (или нажмите `Shift` + `Enter`), чтобы скомпилировать и запустить программу на
-#appengine: удаленном сервере.
+#appengine: удалённом сервере.
 вашем компьютере.
 Результат отобразится под кодом.
 
@@ -34,7 +34,7 @@ https://golang.org
 
 Отредактируйте программу и запустите её снова.
 
-При нажатии на [[javascript:highlightAndClick("#format")][Format]]
+При нажатии на [[javascript:highlightAndClick("#format")][Форматировать код]]
 (сочетание клавиш: `Ctrl` + `Enter`) текст в редакторе форматируется с помощью
 утилиты [[/cmd/gofmt/][gofmt]]. Вы можете включать и выключать подсветку синтаксиса
 нажатием на кнопку [[javascript:highlightAndClick(".syntax-checkbox")][синтаксис]].
@@ -63,7 +63,7 @@ https://golang.org
 
 Нажмите кнопку [[javascript:highlightAndClick(".next-page")]["далее"]] или клавишу `PageDown`, чтобы продолжить.
 
-#appengine: * Go оффлайн (необязательно)
+#appengine: * Go офлайн (необязательно)
 #appengine:
 #appengine: Этот тур также доступен в виде отдельной программы, которую можно использовать
 #appengine: без доступа к интернету. Она собирает и запускает примеры кода прямо
@@ -105,5 +105,5 @@ https://golang.org
 
 Вы завершили первый модуль тура!
 
-Теперь нажмите на [[javascript:highlightAndClick(".logo")][A Tour of Go]], чтобы узнать, что ещё
+Теперь нажмите на [[javascript:highlightAndClick(".logo")][Тур по Go]], чтобы узнать, что ещё
 вы можете изучить в Go, или перейдите прямо к [[javascript:click('.next-page')][следующему уроку]].
