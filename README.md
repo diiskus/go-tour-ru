@@ -23,7 +23,7 @@
 Склонируйте репозиторий и запустите тур:
 
 ```bash
-git clone git@github.com:disk20141417-droid/go-tour-ru.git
+git clone git@github.com:diiskus/go-tour-ru.git
 cd go-tour-ru/tour
 go run .
 ```
