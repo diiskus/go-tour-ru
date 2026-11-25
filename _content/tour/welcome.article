@@ -34,7 +34,7 @@ https://golang.org
 
 Отредактируйте программу и запустите её снова.
 
-При нажатии на [[javascript:highlightAndClick("#format")][Форматировать код]]
+При нажатии на [[javascript:highlightAndClick("#format")][Форматировать]]
 (сочетание клавиш: `Ctrl` + `Enter`) текст в редакторе форматируется с помощью
 утилиты [[/cmd/gofmt/][gofmt]]. Вы можете включать и выключать подсветку синтаксиса
 нажатием на кнопку [[javascript:highlightAndClick(".syntax-checkbox")][синтаксис]].
