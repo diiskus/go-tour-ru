@@ -10,4 +10,4 @@ ENV HOME=/tmp \
     GOPATH=/tmp/go
 
 EXPOSE 7860
-CMD ["sh", "-c", "tour-ru -http=0.0.0.0:${PORT:-7860} -openbrowser=false"]
+CMD ["sh", "-c", "tour-ru -http=0.0.0.0:${PORT:-7860} -openbrowser=false -playground=true"]

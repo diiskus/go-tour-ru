@@ -28,14 +28,16 @@ const (
 )
 
 var (
-	httpListen  *string
-	openBrowser *bool
-	httpAddr    string
+	httpListen     *string
+	openBrowser    *bool
+	playgroundMode *bool
+	httpAddr       string
 )
 
 func Main() {
 	httpListen = flag.String("http", "127.0.0.1:3999", "host:port to listen on")
 	openBrowser = flag.Bool("openbrowser", true, "open browser automatically")
+	playgroundMode = flag.Bool("playground", false, "run snippets via go.dev playground instead of locally")
 
 	flag.Parse()
 
@@ -46,12 +48,19 @@ func Main() {
 	if host == "" {
 		host = "localhost"
 	}
-	if host != "127.0.0.1" && host != "localhost" {
+	if !*playgroundMode && host != "127.0.0.1" && host != "localhost" {
 		log.Print(localhostWarning)
 	}
 	httpAddr = host + ":" + port
 
-	if err := initTour(http.DefaultServeMux, "SocketTransport"); err != nil {
+	transport := "SocketTransport"
+	if *playgroundMode {
+		prepContent = gaePrepContent
+		socketAddr = gaeSocketAddr
+		transport = "HTTPTransport"
+	}
+
+	if err := initTour(http.DefaultServeMux, transport); err != nil {
 		log.Fatal(err)
 	}
 
@@ -61,9 +70,13 @@ func Main() {
 	http.Handle("/favicon.ico", fs)
 	http.Handle("/images/", fs)
 
-	http.HandleFunc(socketPath, func(w http.ResponseWriter, r *http.Request) {
-		socket.NewHandler(requestOrigin(r, host+":"+port)).ServeHTTP(w, r)
-	})
+	if *playgroundMode {
+		http.HandleFunc("/_/compile", playgroundProxyHandler)
+	} else {
+		http.HandleFunc(socketPath, func(w http.ResponseWriter, r *http.Request) {
+			socket.NewHandler(requestOrigin(r, host+":"+port)).ServeHTTP(w, r)
+		})
+	}
 
 	h := webtest.HandlerWithCheck(http.DefaultServeMux, "/_readycheck",
 		os.DirFS("."), "tour/testdata/*.txt")
@@ -199,6 +212,46 @@ func startBrowser(url string) bool {
 
 // prepContent for the local tour simply returns the content as-is.
 var prepContent = func(r io.Reader) io.Reader { return r }
+
+var playgroundHTTPClient = &http.Client{Timeout: 30 * time.Second}
+
+func playgroundProxyHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	r.Body = http.MaxBytesReader(w, r.Body, 1<<20)
+
+	targetURL := "https://go.dev/_/compile"
+	if r.URL.RawQuery != "" {
+		targetURL += "?" + r.URL.RawQuery
+	}
+	req, err := http.NewRequestWithContext(r.Context(), http.MethodPost, targetURL, r.Body)
+	if err != nil {
+		http.Error(w, "bad request", http.StatusBadRequest)
+		return
+	}
+	if ct := r.Header.Get("Content-Type"); ct != "" {
+		req.Header.Set("Content-Type", ct)
+	} else {
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	}
+
+	resp, err := playgroundHTTPClient.Do(req)
+	if err != nil {
+		http.Error(w, "playground unavailable", http.StatusBadGateway)
+		return
+	}
+	defer resp.Body.Close()
+
+	if ct := resp.Header.Get("Content-Type"); ct != "" {
+		w.Header().Set("Content-Type", ct)
+	} else {
+		w.Header().Set("Content-Type", "application/json")
+	}
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, io.LimitReader(resp.Body, 4<<20))
+}
 
 func requestOrigin(r *http.Request, fallbackHost string) *url.URL {
 	scheme := "http"
