@@ -1,5 +1,10 @@
 window.transport = {{.Transport}}();
-window.socketAddr = "{{.SocketAddr}}";
+window.socketAddr = (function(addr) {
+    if (addr && addr[0] === "/") {
+        return (location.protocol === "https:" ? "wss://" : "ws://") + location.host + addr;
+    }
+    return addr;
+})("{{.SocketAddr}}");
 
 function highlight(selector) {
     var speed = 50;

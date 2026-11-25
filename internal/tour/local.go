@@ -61,8 +61,9 @@ func Main() {
 	http.Handle("/favicon.ico", fs)
 	http.Handle("/images/", fs)
 
-	origin := &url.URL{Scheme: "http", Host: host + ":" + port}
-	http.Handle(socketPath, socket.NewHandler(origin))
+	http.HandleFunc(socketPath, func(w http.ResponseWriter, r *http.Request) {
+		socket.NewHandler(requestOrigin(r, host+":"+port)).ServeHTTP(w, r)
+	})
 
 	h := webtest.HandlerWithCheck(http.DefaultServeMux, "/_readycheck",
 		os.DirFS("."), "tour/testdata/*.txt")
@@ -199,8 +200,27 @@ func startBrowser(url string) bool {
 // prepContent for the local tour simply returns the content as-is.
 var prepContent = func(r io.Reader) io.Reader { return r }
 
+func requestOrigin(r *http.Request, fallbackHost string) *url.URL {
+	scheme := "http"
+	if r.TLS != nil || strings.EqualFold(r.Header.Get("X-Forwarded-Proto"), "https") {
+		scheme = "https"
+	}
+	host := r.Host
+	if host == "" {
+		host = fallbackHost
+	}
+	if _, _, err := net.SplitHostPort(host); err != nil {
+		if scheme == "https" {
+			host = net.JoinHostPort(host, "443")
+		} else {
+			host = net.JoinHostPort(host, "80")
+		}
+	}
+	return &url.URL{Scheme: scheme, Host: host}
+}
+
 // socketAddr returns the WebSocket handler address.
-var socketAddr = func() string { return "ws://" + httpAddr + socketPath }
+var socketAddr = func() string { return socketPath }
 
 // analyticsHTML is optional analytics HTML to insert at the beginning of <head>.
 var analyticsHTML template.HTML
